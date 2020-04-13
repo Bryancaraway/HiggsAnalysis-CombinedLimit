@@ -5,7 +5,7 @@ HiggsAnalysis-CombinedLimit
 
 [Manual to run combine](http://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/)
 
-
+```
 git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
 cd HiggsAnalysis/CombinedLimit
 source env_standalone.sh 
@@ -18,6 +18,7 @@ cmsrel CMS_10_2_9
 cd CMS_10_2_9/src
 cmsenv
 git clone https://github.com/Bryancaraway/TTX/HiggsAnalysis-CombinedLimit.git
+git checkout TTX
 scramv1 b clean; scramv1 b
 ```
 ### Run combine for TTX analysis
