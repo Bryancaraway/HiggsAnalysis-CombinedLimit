@@ -1,0 +1,16 @@
+Combination of HZpt_200to300=HZpt_200to300.txt  HZpt_ge300=HZpt_ge300.txt
+imax 2 number of bins
+jmax 13 number of processes minus 1
+kmax 0 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *              HZpt_200to300  Higgs-Combine-Tool/input.root HZpt_200to300/$PROCESS HZpt_200to300/$PROCESS_$SYSTEMATIC
+shapes *              HZpt_ge300     Higgs-Combine-Tool/input.root HZpt_ge300/$PROCESS HZpt_ge300/$PROCESS_$SYSTEMATIC
+----------------------------------------------------------------------------------------------------------------------------------
+bin          HZpt_200to300  HZpt_ge300   
+observation  -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
+bin          HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_200to300  HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300     HZpt_ge300   
+process      ttHbb_lowpt    ttZbb_lowpt    DiBoson        TriBoson       QCD            WJets          ttZqq          TTX            TTBarHad       DY             TTBarLep       ZJets          ttZbb_highpt   ttHbb_highpt   DiBoson        TTX            TriBoson       QCD            ttZqq          WJets          TTBarHad       DY             TTBarLep       ZJets        
+process      -3             -2             1              2              3              4              5              6              7              8              9              10             -1             0              1              6              2              3              5              4              7              8              9              10           
+rate         -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
