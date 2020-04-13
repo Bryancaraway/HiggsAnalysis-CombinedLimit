@@ -17,7 +17,7 @@ scramv1 b clean; scramv1 b
 ```
 ### Run combine for TTX analysis
 ```
-python runCombineTTX.py
+python runCombineTTX.py HZpt.txt
 combine -M MultiDimFit HZpt.root -P r_ttHbb_lowpt -P r_ttZbb_lowpt --floatOtherPOIs=0 --algo=grid --points=900 --setParameterRanges r_ttHbb_lowpt=-3,3:r_ttZbb_lowpt=-3,3 --fastScan -t -1   
 ```
 for example...

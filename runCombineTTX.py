@@ -17,7 +17,10 @@ import subprocess
 import os
 
 input_dc= sys.argv[1]
-outputWP= sys.argv[1].split('/')[1].split('.')[0]+'.root'
+if '/' in input_dc:
+    outputWSP = sys.argv[1].split('/')[1].split('.')[0]+'.root'
+else:
+    outputWSP = input_dc.split('.')[0]+'.root'
 # POI list
 poi_list = [
     'ttHbb_lowpt' ,
@@ -29,7 +32,7 @@ poi_list = [
 command = 'text2workspace.py -P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel  --PO verbose '
 for poi in poi_list:
     command += '--PO \'map=.*/'+poi+':r_'+poi+'[1,0,10]\' '
-command += input_dc+' -o '+outputWP
+command += input_dc+' -o '+outputWSP
 print(command)
 os.system(command)
 
