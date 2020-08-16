@@ -1,0 +1,15 @@
+Example of commands to get Combine output:
+
+python runCombineTTX.py C # make sure bins are right in file
+
+python runCombineTTX.py Higgs-Combine-Tool/HZpt_300inc.txt 
+
+for i in Z H ; do for j in 1 2 3 ; do python runCombineTTX.py HZpt_300inc.root M tt$i\bin$j ; done ; done
+
+for i in Z H ; do for j in 1 2 3 ; do root -q -b higgsCombinett$i\bin$j\.MultiDimFit.mH120.root limitmacro.cxx; done ; done # change outDir in limitmacro file
+
+####################################################3
+
+for i in Z H ; do for j in 1 2 3 4; do python runCombineTTX.py HZpt_400inc.root M tt$i\bin$j ; done ; done
+
+for i in Z H ; do for j in 1 2 3 4; do root -q -b higgsCombinett$i\bin$j\.MultiDimFit.mH120.root limitmacro.cxx; done ; done # change outDir in limitmacro file
