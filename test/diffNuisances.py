@@ -105,7 +105,6 @@ for i in range(fpf_s.getSize()):
     name   = nuis_s.GetName();
     nuis_b = fpf_b.find(name)
     nuis_p = prefit.find(name)
-
     # keeps information to be printed about the nuisance parameter
     row = []
 

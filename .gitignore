@@ -1,1 +1,6 @@
-site
+*.root
+*.json
+*.png
+*.pdf
+*~
+*#
