@@ -33,7 +33,7 @@ class EFTModel(PhysicsModel):
                             'ctG'  :(-3,3),    'cpQM' :(-30,50),
                             'ctlTi':(-200,200),'ctei' :(-200,200),
                             'cQei' :(-200,200),'cQlMi':(-200,200),
-                            'cpQ3' :(-10,10),  'cbW'  :(-10,10)
+                            'cpQ3' :(-10,10),  'cbW'  :(-12,12)
                         }
         wcs_override = [] # WCs specified by arguments
         self.procbins = [] # Process+bin combinations (tuple) that we have events for
