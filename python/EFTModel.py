@@ -1,5 +1,5 @@
 import numpy as np
-import ROOT
+import ROOT as r
 import pprint
 #ROOT.gSystem.Load('$CMSSW_BASE/src/EFTFit/Fitter/interface/TH1EFT_h.so')
 
@@ -25,7 +25,18 @@ class EFTModel(PhysicsModel):
     def setPhysicsOptions(self, options):
         self.fits = None # File containing WC parameterizations of each process+bin *with events*!
         self.linear_only = False    # Physics Option flag to determine if the quadratic terms should be dropped from the workspace
-        self.wcs = ['ctW','ctZ','ctp','cpQM','ctG','cbW','cpQ3','cptb','cpt','cQl3i','cQlMi','cQei','ctli','ctei','ctlSi','ctlTi'] # Hardcoded currently...
+        self.wcs = [ # Hardcoded currently...
+            'ctW',
+            'ctZ',
+            'ctp',
+            'cpQM',
+            #'ctG',
+            'cbW',
+            'cpQ3',
+            'cptb',
+            'cpt',
+            #'cQl3i','cQlMi','cQei','ctli','ctei','ctlSi','ctlTi',
+        ]
         self.wc_ranges = {  'ctW'  :(-6,6),    'ctZ'  :(-7,7),
                             'cpt'  :(-40,30),  'ctp'  :(-35,65),
                             'ctli' :(-200,200),'ctlSi':(-200,200),
@@ -75,6 +86,8 @@ class EFTModel(PhysicsModel):
         fits = np.load(self.fits)
         #fits = np.load(self.fits)[()]
         self.procbins.extend(fits.keys())
+        #self.procbins = [procbin for procbin in self.procbins  if 'tt_B' != procbin[0].decode()]
+        print(self.procbins)
         if len(wcs_override)>0: self.wcs = np.intersect1d(self.wcs,wcs_override)
         if len(procbin_override)>0: self.procbins = np.intersect1d(self.procbins,procbins_override)
 
@@ -83,6 +96,7 @@ class EFTModel(PhysicsModel):
         fits = np.load(self.fits)
         #fits = np.load(self.fits)[()]
         for i,procbin in enumerate(sorted(self.procbins)):
+            #print(procbin[0].decode())
             #self.modelBuilder.out.var(procbin)
             name = 'r_{proc}_{cat}'.format(proc=procbin[0],cat=procbin[1])
             procbin_name = '_'.join(procbin)
@@ -103,10 +117,8 @@ class EFTModel(PhysicsModel):
                     #if abs(fits[procbin][('sm',wc1)]) >= 0.001:
                     if abs(fits[procbin][('sm',wc1)]) >= 0.0:
                         if fits[procbin][('sm',wc1)] < 0.0:
-                            #lin_term.append('({0})*{1}'.format(round(fits[procbin][('sm',wc1)],4),wc1))
                             lin_term.append('({0})*{1}'.format(fits[procbin][('sm',wc1)],wc1))
                         else:
-                            #lin_term.append('{0}*{1}'.format(round(fits[procbin][('sm',wc1)],4),wc1))
                             lin_term.append('{0}*{1}'.format(fits[procbin][('sm',wc1)],wc1))
                         lin_args.append(wc1)
                     for idy,wc2 in enumerate(self.wcs):
@@ -115,10 +127,8 @@ class EFTModel(PhysicsModel):
                         if (wc1,wc2) not in fits[procbin]: key = (wc2, wc1)
                         #if (idy >= idx) and (abs(fits[procbin][(wc1,wc2]) >= 0.001):
                         if (idy >= idx) and (abs(fits[procbin][key]) >= 0.000):
-                            #quartic_terms[idx].append('{0}*{1}*{2}'.format(round(fits[procbin][(wc1,wc2)],4),wc1,wc2))
-                            #quartic_args[idx].extend([wc1,wc2])
-                            quartic_terms[idx].append('{0}*{1}*{2}'.format(fits[procbin][key],key[0],key[1]))
-                            quartic_args[idx].extend([key[0],key[1]])
+                            quartic_terms[idx].append('{0}*{1}*{2}'.format(fits[procbin][key],key[0],key[1])) # wc1, wc2
+                            quartic_args[idx].extend([key[0],key[1]]) # wc1 , wc2
                 # Compile linear function for combine
                 if lin_term:
                     lin_expr = "expr::{lin_name}('{lin_term}',{lin_args})".format(lin_name=lin_name,lin_term="+".join(lin_term),lin_args=",".join(lin_args))
@@ -138,6 +148,7 @@ class EFTModel(PhysicsModel):
 
                 # Export fit function
                 self.modelBuilder.out._import(quadratic)
+
 
     def doParametersOfInterest(self):
         # user can call combine with `--setPhysicsModelParameterRanges` to set to sensible ranges
